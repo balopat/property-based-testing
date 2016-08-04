@@ -18,6 +18,10 @@ public class PrimeFactorsTest {
         assertThat(PrimeFactors.factorsOf(1), is(new ArrayList<>()));
     }
 
- 
+    @Test
+    public void twoShouldHaveItselfAsPrimeFactor() {
+        assertThat(PrimeFactors.factorsOf(2), is(singletonList(2)));
+    }
+
 
 }
