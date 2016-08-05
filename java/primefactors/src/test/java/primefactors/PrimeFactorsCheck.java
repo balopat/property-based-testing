@@ -9,11 +9,13 @@ import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
 import org.junit.runner.RunWith;
 
 import java.io.*;
+import java.util.Collections;
 import java.util.List;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
+import static java.util.Collections.sort;
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -36,6 +38,7 @@ public class PrimeFactorsCheck {
                 e.printStackTrace();
             }
         }
+
         protected Primes(Class<Integer> type) {
             super(type);
 
@@ -61,7 +64,7 @@ public class PrimeFactorsCheck {
 
     @Property(trials = 100)
     public void primeFactorsOfPrimesIsThePrimeItself(@From(Primes.class)
-                                                         Integer n) {
+                                                     Integer n) {
         assertThat(PrimeFactors.factorsOf(n),
                 is(singletonList(n)));
     }
@@ -69,7 +72,27 @@ public class PrimeFactorsCheck {
 
     @Property(trials = 100)
     public void primeFactorOfPrimeSquareIsTheListOfPrimeTwice(@From(Primes.class)
-                                                     Integer n) {
+                                                              Integer n) {
+        assertThat(PrimeFactors.factorsOf(n * n),
+                is(asList(n, n)));
+    }
+
+    @Property(trials = 100)
+    public void primeFactorOfProductOfTwoPrimesIsTheListOfThePrimes(@From(Primes.class)
+                                                                    Integer a, @From(Primes.class)
+                                                                    Integer b
+    ) {
+        List<Integer> result = PrimeFactors.factorsOf(a * b);
+        List<Integer> expected = asList(a, b);
+        sort(result);
+        sort(expected);
+        assertThat(result,
+                is(expected));
+    }
+
+    @Property(trials = 100)
+    public void theProductOfAListOfPrimes(@From(Primes.class)
+                                          Integer n) {
         assertThat(PrimeFactors.factorsOf(n * n),
                 is(asList(n, n)));
     }
