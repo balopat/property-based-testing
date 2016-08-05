@@ -7,22 +7,21 @@ public class PrimeFactors {
 
 
     public static List<Integer> factorsOf(int n) {
+        List<Integer> factors = new ArrayList<>();
         if (n > 1) {
-            return trialDivision(n, 2,  new ArrayList<Integer>());
-        }
-        return new ArrayList<>();
-    }
-
-    private static List<Integer> trialDivision(Integer n, Integer divisor, List<Integer> factors) {
-        if (n < 2) {
-            return factors;
-        } else {
-            if (n % divisor == 0) {
-                factors.add(divisor);
-                return trialDivision(n / divisor, divisor, factors);
-            } else {
-                return trialDivision(n, divisor + 1, factors);
+            int m = n;
+            int divisor = 2;
+            while (m >= 2) {
+                if (m % divisor == 0) {
+                    factors.add(divisor);
+                    m /= divisor;
+                } else {
+                    divisor++;
+                }
             }
         }
+        return factors;
     }
+
+
 }

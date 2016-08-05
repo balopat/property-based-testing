@@ -12,6 +12,7 @@ import java.io.*;
 import java.util.List;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.core.Is.is;
@@ -66,5 +67,11 @@ public class PrimeFactorsCheck {
     }
 
 
+    @Property(trials = 100)
+    public void primeFactorOfPrimeSquareIsTheListOfPrimeTwice(@From(Primes.class)
+                                                     Integer n) {
+        assertThat(PrimeFactors.factorsOf(n * n),
+                is(asList(n, n)));
+    }
 
 }
