@@ -61,8 +61,10 @@ public class PrimeFactorsCheck {
     @Property(trials = 100)
     public void primeFactorsOfPrimesIsThePrimeItself(@From(Primes.class)
                                                          Integer n) {
-        System.out.println(n);
         assertThat(PrimeFactors.factorsOf(n),
                 is(singletonList(n)));
     }
+
+
+
 }
