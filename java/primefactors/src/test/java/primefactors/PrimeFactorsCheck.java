@@ -93,8 +93,7 @@ public class PrimeFactorsCheck {
     @Property(trials = 100)
     public void theProductOfAListOfPrimes(@From(Primes.class)
                                           Integer n) {
-        assertThat(PrimeFactors.factorsOf(n * n),
-                is(asList(n, n)));
+       //TODO: figure out how to generate lists
     }
 
 }
